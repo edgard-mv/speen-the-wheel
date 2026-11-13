@@ -1,0 +1,323 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('./assets/fonts/bebas-neue.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Anton';
+  src: url('./assets/fonts/anton.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Red Rocket Condensed';
+  src: url('./assets/fonts/red-rocket-condensed.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neuropol';
+  src: url('./assets/fonts/neuropol.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --navy: #223262;
+  --medal-blue: #0477b8;
+  --sky: #0093d6;
+  --sun-gold: #f8cd00;
+  --amber: #efae00;
+  --sun-yellow: #ffe700;
+  --white: #ffffff;
+  --charcoal: #4a5252;
+
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-title: 'Neuropol', var(--font-ui);
+  --font-winner: 'Anton', Impact, var(--font-ui);
+
+  color-scheme: light;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--navy);
+  color: var(--white);
+}
+
+button {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sun-yellow);
+  outline-offset: 2px;
+}
+
+/* ---------- Layout ---------- */
+
+.page {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 3vh, 28px);
+  padding: 16px;
+}
+
+.logo-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: clamp(8px, 1.6vh, 14px) clamp(14px, 3vw, 24px);
+  width: min(420px, 78vw);
+}
+
+.logo-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.wheel {
+  display: block;
+  width: min(90vw, calc(75svh * 1.1));
+  height: auto;
+  aspect-ratio: 440 / 400;
+  /* The viewBox has 40 extra units on the right for the pointer; shift so the wheel itself is centered. */
+  transform: translateX(4.5%);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+}
+
+.wheel[aria-disabled='true'] {
+  cursor: default;
+}
+
+.wheel:focus-visible {
+  outline: none;
+}
+
+.wheel:focus-visible .rim {
+  stroke: var(--sun-yellow);
+}
+
+.hint {
+  font-family: 'Red Rocket Condensed', var(--font-winner);
+  font-size: 34px;
+  letter-spacing: 1px;
+  fill: var(--white);
+  stroke: var(--navy);
+  stroke-width: 7px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  pointer-events: none;
+}
+
+.slice-label {
+  font-family: 'Bebas Neue', var(--font-winner);
+  pointer-events: none;
+}
+
+/* ---------- Corner buttons ---------- */
+
+.toolbar {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.icon-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.icon-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.icon-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding-top: 68px;
+  }
+}
+
+/* ---------- Dialogs ---------- */
+
+dialog {
+  width: min(440px, 92vw);
+  border: 0;
+  border-radius: 16px;
+  padding: 24px;
+  background: var(--white);
+  color: var(--charcoal);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+dialog :focus-visible {
+  outline-color: var(--medal-blue);
+}
+
+dialog::backdrop {
+  background: rgba(13, 20, 45, 0.6);
+}
+
+.dialog-title {
+  margin: 0 0 12px;
+  font-family: var(--font-title);
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: 1px;
+  color: var(--navy);
+}
+
+.winner {
+  margin: 4px 0 24px;
+  font-family: var(--font-winner);
+  font-weight: normal;
+  font-size: clamp(32px, 9vw, 52px);
+  line-height: 1.15;
+  color: var(--medal-blue);
+  overflow-wrap: anywhere;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.btn {
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1.5px solid var(--navy);
+  background: transparent;
+  color: var(--navy);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgba(34, 50, 98, 0.08);
+}
+
+.btn.primary {
+  background: var(--sun-gold);
+  border-color: var(--sun-gold);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.options-help {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.options-text {
+  width: 100%;
+  min-height: min(220px, 30vh);
+  max-height: 50vh;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1.5px solid rgba(34, 50, 98, 0.35);
+  border-radius: 10px;
+  font: 15px/1.5 var(--font-ui);
+  color: var(--charcoal);
+}
+
+.options-text:focus-visible {
+  outline: none;
+  border-color: var(--medal-blue);
+  box-shadow: 0 0 0 3px rgba(4, 119, 184, 0.25);
+}
+
+.options-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+
+.options-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 20px;
+  margin: 16px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(34, 50, 98, 0.12);
+}
+
+.text-button {
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: var(--medal-blue);
+  font-size: 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  color: var(--navy);
+}
+
+.copy-status {
+  font-size: 13px;
+  color: var(--medal-blue);
+}
+
+.error {
+  color: #b42318;
+}
+
+.warning {
+  color: #8a5a00;
+}
+
+.options-tools + .dialog-actions {
+  margin-top: 20px;
+}

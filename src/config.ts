@@ -5,6 +5,7 @@ export const DEFAULT_OPTIONS: readonly string[] = [
   'LAPICERO',
   '¡Gracias por participar!',
   'CUPÓN DESCUENTO',
+  'BOLSA CARAMELERA',
 ]
 
 /** Brand palette sampled from the Transporte Medal logo. Mirrored as CSS variables in styles.css. */
